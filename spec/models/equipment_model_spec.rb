@@ -13,7 +13,7 @@ describe EquipmentModel, type: :model do
   end
 
   describe 'basic validations' do
-    subject { EquipmentModel.new(ordering: 1) }
+    let!(:model) { mock_eq_model }
     it { is_expected.to have_and_belong_to_many(:requirements) }
     it { is_expected.to have_many(:equipment_items) }
     it { is_expected.to have_many(:reservations) }
@@ -23,15 +23,18 @@ describe EquipmentModel, type: :model do
     it { is_expected.to accept_nested_attributes_for(:checkout_procedures) }
     it { is_expected.to have_and_belong_to_many(:associated_equipment_models) }
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_uniqueness_of(:name) }
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to belong_to(:category) }
     it { is_expected.to validate_presence_of(:ordering) }
     it 'requires an associated category' do
-      model = mock_eq_model
       model.category = nil
       expect(model.valid?).to be_falsey
     end
+  end
+
+  describe 'validations requiring peristance' do
+    subject { FactoryGirl.build(:equipment_model) }
+    it { is_expected.to validate_uniqueness_of(:name) }
   end
 
   describe 'attribute-specific validations' do
