@@ -5,6 +5,7 @@
 ## Unreleased
 ### Fixed
 * Fixed new user signup when guest access is disabled ([#1706](https://github.com/YaleSTC/reservations/issues/1706)).
+* Permitted the use of S3 buckets in regions other than US-East-1 ([#1708](https://github.com/YaleSTC/reservations/issues/1708)).
 
 ## v6.3.0 - 2017-09-01
 ### Important
